@@ -9,10 +9,16 @@ import 'package:save_the_bees/save_the_bees_game.dart';
 void main() async {
   Flame.images.loadAll(<String>[
     'bee-eater.png',
+    'bee-eater-dead.png',
     'bee.png',
+    'bee-dead.png',
     'bg.png',
     'fly-swatter.png',
+    'fly-swatter-dead.png',
     'pesticide.png',
+    'pesticide-dead.png',
+    'soap.png',
+    'soap-dead.png',
   ]);
 
   Util flameUtil = Util();

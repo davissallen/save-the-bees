@@ -7,7 +7,7 @@ class FlySwatter extends Enemy {
   FlySwatter(SaveTheBeesGame game, double x, double y) : super(game, x, y) {
     flyingSprite = List<Sprite>();
     flyingSprite.add(Sprite('fly-swatter.png'));
-    deadSprite = Sprite('fly-swatter.png');  // TODO: Make dead image?
+    deadSprite = Sprite('fly-swatter-dead.png');
   }
 
 }

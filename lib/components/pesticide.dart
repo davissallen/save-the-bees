@@ -7,7 +7,7 @@ class Pesticide extends Enemy {
   Pesticide(SaveTheBeesGame game, double x, double y) : super(game, x, y) {
     flyingSprite = List<Sprite>();
     flyingSprite.add(Sprite('pesticide.png'));
-    deadSprite = Sprite('pesticide.png');  // TODO: Make dead image?
+    deadSprite = Sprite('pesticide-dead.png');
   }
 
 }

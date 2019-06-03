@@ -36,6 +36,12 @@ class Enemy {
   }
 
   void onTapDown() {
+    if (!isDead) {
+      die();
+    }
+  }
+
+  void die() {
     isDead = true;
   }
 }

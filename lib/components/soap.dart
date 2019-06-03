@@ -7,7 +7,7 @@ class Soap extends Enemy {
   Soap(SaveTheBeesGame game, double x, double y) : super(game, x, y) {
     flyingSprite = List<Sprite>();
     flyingSprite.add(Sprite('soap.png'));
-    deadSprite = Sprite('soap.png');  // TODO: Make dead image?
+    deadSprite = Sprite('soap-dead.png');
   }
 
 }

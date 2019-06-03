@@ -7,7 +7,7 @@ class BeeEater extends Enemy {
   BeeEater(SaveTheBeesGame game, double x, double y) : super(game, x, y) {
     flyingSprite = List<Sprite>();
     flyingSprite.add(Sprite('bee-eater.png'));
-    deadSprite = Sprite('bee-eater.png');  // TODO: Make dead image?
+    deadSprite = Sprite('bee-eater-dead.png');
   }
 
 }
