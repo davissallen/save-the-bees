@@ -10,7 +10,8 @@ void main() async {
   Flame.images.loadAll(<String>[
     'bee-eater.png',
     'bee-eater-dead.png',
-    'bee.png',
+    'bee-1.png',
+    'bee-2.png',
     'bee-dead.png',
     'bg.png',
     'fly-swatter.png',
