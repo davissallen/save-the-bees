@@ -4,14 +4,19 @@ import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 
-import 'package:save_the_bees/enemy.dart';
-import 'package:save_the_bees/background.dart';
+import 'package:save_the_bees/components/enemy.dart';
+import 'package:save_the_bees/components/background.dart';
+import 'package:save_the_bees/components/pesticide.dart';
+import 'package:save_the_bees/components/bee_eater.dart';
+import 'package:save_the_bees/components/soap.dart';
+import 'package:save_the_bees/components/fly_swatter.dart';
 
 class SaveTheBeesGame extends Game {
   Size screenSize;
   double tileSize;
   List<Enemy> enemies;
-  Random randomGenerator;
+  List<Enemy> enemiesInQueue;
+  Random random;
   Background background;
 
   SaveTheBeesGame() {
@@ -19,22 +24,17 @@ class SaveTheBeesGame extends Game {
   }
 
   void initialize() async {
-    randomGenerator = new Random();
+    random = new Random();
     enemies = List<Enemy>();
-    background = Background(this);
+    enemiesInQueue = List<Enemy>();
     resize(await Flame.util.initialDimensions());
+    background = Background(this);
     spawnEnemy();
   }
 
   void render(Canvas canvas) {
-    Rect bgRect = Rect.fromLTWH(0, 0, screenSize.width, screenSize.height);
-    Paint bgPaint = Paint();
-    bgPaint.color = Color(0xff576574);
-    canvas.drawRect(bgRect, bgPaint);
-
-    enemies.forEach((Enemy e) => e.render(canvas));
-
     background.render(canvas);
+    enemies.forEach((Enemy e) => e.render(canvas));
   }
 
   void update(double t) {
@@ -44,21 +44,44 @@ class SaveTheBeesGame extends Game {
 
   void resize(Size size) {
     screenSize = size;
-    tileSize = screenSize.width / 9;
+    tileSize = screenSize.width / 3;
   }
 
   void spawnEnemy() {
-    double randomX = randomGenerator.nextDouble() * (screenSize.width - tileSize);
-    double randomY = randomGenerator.nextDouble() * (screenSize.height - tileSize);
-    enemies.add(Enemy(this, randomX, randomY));
+    double randomX = random.nextDouble() * (screenSize.width - tileSize);
+    double randomY = random.nextDouble() * (screenSize.height - tileSize);
+
+    Enemy e;
+    switch (random.nextInt(4)) {
+      case 0:
+        e = Pesticide(this, randomX, randomY);
+        break;
+      case 1:
+        e = Soap(this, randomX, randomY);
+        break;
+      case 2:
+        e = BeeEater(this, randomX, randomY);
+        break;
+      case 3:
+        e = FlySwatter(this, randomX, randomY);
+        break;
+    }
+
+    if (enemies.length == 0) {
+      enemies.add(e);
+    } else {
+      enemiesInQueue.add(e);
+    }
   }
 
   void onTapDown(TapDownDetails d) {
     enemies.forEach((Enemy e) {
-      if (e.enemyRect.contains(d.globalPosition)) {
+      if (!e.isDead && e.enemyRect.contains(d.globalPosition)) {
         e.onTapDown();
+        spawnEnemy();
       }
     });
+    enemies.addAll(enemiesInQueue);
+    enemiesInQueue = List<Enemy>();
   }
-
 }

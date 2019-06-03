@@ -12,9 +12,9 @@ class Background {
     bgSprite = Sprite('bg.png');
     bgRect = Rect.fromLTWH(
       0,
-      game.screenSize.height - (game.tileSize * 18),
-      game.tileSize * 9,
-      game.tileSize * 23,
+      game.screenSize.height - (game.tileSize * 6),
+      game.tileSize * 3,
+      game.tileSize * 6,
     );
   }
 
