@@ -7,14 +7,16 @@ class Background {
   final SaveTheBeesGame game;
   Sprite bgSprite;
   Rect bgRect;
+  static final int heightInTiles = 10;
+  static final int widthInTiles = 5;
 
   Background(this.game) {
     bgSprite = Sprite('bg.png');
     bgRect = Rect.fromLTWH(
       0,
-      game.screenSize.height - (game.tileSize * 6),
-      game.tileSize * 3,
-      game.tileSize * 6,
+      game.screenSize.height - (game.tileSize * heightInTiles),
+      game.tileSize * widthInTiles,
+      game.tileSize * heightInTiles,
     );
   }
 

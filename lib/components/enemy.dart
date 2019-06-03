@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flame/sprite.dart';
+import 'package:save_the_bees/components/background.dart';
 
 import 'package:save_the_bees/save_the_bees_game.dart';
 
@@ -11,10 +12,9 @@ class Enemy {
   List<Sprite> flyingSprite;
   Sprite deadSprite;
   double flyingSpriteIndex = 0;
+  double gravity = Background.heightInTiles.toDouble();
 
-  Enemy(this.game, double x, double y) {
-    enemyRect = Rect.fromLTWH(x, y, game.tileSize, game.tileSize);
-  }
+  Enemy(this.game);
 
   void render(Canvas c) {
     if (isDead) {
@@ -31,7 +31,7 @@ class Enemy {
     }
 
     if (isDead) {
-      enemyRect = enemyRect.translate(0, game.tileSize * 3 * t);
+      enemyRect = enemyRect.translate(0, game.tileSize * gravity * t);
     }
   }
 

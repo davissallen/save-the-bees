@@ -50,33 +50,35 @@ class SaveTheBeesGame extends Game {
 
   void resize(Size size) {
     screenSize = size;
-    tileSize = screenSize.width / 3;
+    tileSize = screenSize.width / Background.widthInTiles;
   }
 
   void spawnEnemy() {
-    double randomX = random.nextDouble() * (screenSize.width - tileSize);
-    double randomY = random.nextDouble() * (screenSize.height - tileSize);
+    double randomX = random.nextDouble() *
+        (screenSize.width - (tileSize * 1.5 * BeeEater.relativeSize));
+    double randomY = random.nextDouble() *
+        (screenSize.height - (tileSize * 1.5 * BeeEater.relativeSize));
 
     Enemy e;
     switch (random.nextInt(4)) {
-      case 0:
-        e = Pesticide(this, randomX, randomY);
-        break;
-      case 1:
-        e = Soap(this, randomX, randomY);
-        break;
-      case 2:
-        e = BeeEater(this, randomX, randomY);
-        break;
-      case 3:
-        e = FlySwatter(this, randomX, randomY);
-        break;
+    case 0:
+    e = Pesticide(this, randomX, randomY);
+    break;
+    case 1:
+    e = Soap(this, randomX, randomY);
+    break;
+    case 2:
+    e = BeeEater(this, randomX, randomY);
+    break;
+    case 3:
+    e = FlySwatter(this, randomX, randomY);
+    break;
     }
 
     if (enemies.length == 0) {
-      enemies.add(e);
+    enemies.add(e);
     } else {
-      enemiesInQueue.add(e);
+    enemiesInQueue.add(e);
     }
   }
 
@@ -96,6 +98,7 @@ class SaveTheBeesGame extends Game {
   }
 
   void spawnHero() {
-    hero = Bee(this, (screenSize.width - tileSize)/2, (screenSize.height - tileSize)/2);
+    hero = Bee(this, (screenSize.width - tileSize) / 2,
+        (screenSize.height - tileSize) / 2);
   }
 }
