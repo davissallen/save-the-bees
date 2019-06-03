@@ -22,6 +22,8 @@ class SaveTheBeesGame extends Game {
   Background background;
   Hero hero;
 
+  double outOfBounds = 200;
+
   SaveTheBeesGame() {
     this.initialize();
   }
@@ -54,6 +56,9 @@ class SaveTheBeesGame extends Game {
   }
 
   void spawnEnemy() {
+
+    Offset spawnLocation = getSpawnLocation();
+
     double randomX = random.nextDouble() *
         (screenSize.width - (tileSize * 1.5 * BeeEater.relativeSize));
     double randomY = random.nextDouble() *
@@ -100,5 +105,32 @@ class SaveTheBeesGame extends Game {
   void spawnHero() {
     hero = Bee(this, (screenSize.width - tileSize) / 2,
         (screenSize.height - tileSize) / 2);
+  }
+
+  // TODO Kjd;lkjf;kla BeeEater
+  /// Returns X, Y in these ranges:
+  ///   Range 1:
+  ///     x: [-OOB, -ENEMY_WIDTH], y: [-OOB, SCREEN_HEIGHT+OOB]
+  ///   Range 2:
+  ///     x: [-OOB, SCREEN_WIDTH+OOB], y: [-OOB, -ENEMY_HEIGHT]
+  ///   Range 3:
+  ///     x: [SCREEN_WIDTH+ENEMY_WIDTH, SCREEN_WIDTH+OOB], y: [-OOB, SCREEN_HEIGHT+OOB]
+  ///   Range 4:
+  ///     x: [-OOB, SCREEN_WIDTH+OOB], y: [SCREEN_HEIGHT+ENEMY_HEIGHT, SCREEN_HEIGHT+OOB]
+  Offset getSpawnLocation() {
+    double x;
+    double y;
+    int area = random.nextInt(4);
+    switch (area) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+    }
+    Offset coordinates = Offset(x, y);
   }
 }

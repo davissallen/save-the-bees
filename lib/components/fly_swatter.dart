@@ -6,14 +6,14 @@ import 'package:save_the_bees/components/enemy.dart';
 import 'package:save_the_bees/save_the_bees_game.dart';
 
 class FlySwatter extends Enemy {
-  static final double relativeSize = 2;
+  static final double relativeSize = 1;
 
   FlySwatter(SaveTheBeesGame game, double x, double y) : super(game) {
     enemyRect = Rect.fromLTWH(
       x,
       y,
-      game.tileSize * (1.5 * relativeSize),
-      game.tileSize * 1.5,
+      game.tileSize * relativeSize,
+      game.tileSize * relativeSize,
     );
     flyingSprite = List<Sprite>();
     flyingSprite.add(Sprite('fly-swatter.png'));

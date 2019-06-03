@@ -5,6 +5,8 @@ import 'package:save_the_bees/components/background.dart';
 import 'package:save_the_bees/save_the_bees_game.dart';
 
 class Enemy {
+  static final double gravity = Background.heightInTiles.toDouble();
+
   final SaveTheBeesGame game;
   Rect enemyRect;
   bool isDead = false;
@@ -12,7 +14,6 @@ class Enemy {
   List<Sprite> flyingSprite;
   Sprite deadSprite;
   double flyingSpriteIndex = 0;
-  double gravity = Background.heightInTiles.toDouble();
 
   Enemy(this.game);
 
@@ -26,12 +27,16 @@ class Enemy {
   }
 
   void update(double t) {
-    if (enemyRect.top > game.screenSize.height) {
-      isOffScreen = true;
-    }
-
     if (isDead) {
-      enemyRect = enemyRect.translate(0, game.tileSize * gravity * t);
+      if (enemyRect.top > game.screenSize.height) {
+        isOffScreen = true;
+      }
+      enemyRect = enemyRect.translate(0, game.tileSize * 3 * t);
+    } else {
+      flyingSpriteIndex += 12 * t;
+      if (flyingSpriteIndex >= 2) {
+        flyingSpriteIndex -= 2;
+      }
     }
   }
 
