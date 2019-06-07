@@ -21,6 +21,7 @@ class SaveTheBeesGame extends Game {
   Random random;
   Background background;
   Hero hero;
+  Offset center;
 
   SaveTheBeesGame() {
     this.initialize();
@@ -50,6 +51,8 @@ class SaveTheBeesGame extends Game {
 
   void resize(Size size) {
     screenSize = size;
+    // TODO: make this smarter by including the dimensions of the hero.
+    center = Offset(size.width / 2, size.height / 2);
     tileSize = screenSize.width / Background.widthInTiles;
   }
 
@@ -117,7 +120,6 @@ class SaveTheBeesGame extends Game {
   }
 
   void spawnHero() {
-    hero = Bee(this, (screenSize.width - tileSize) / 2,
-        (screenSize.height - tileSize) / 2);
+    hero = Bee(this, center.dx, center.dy);
   }
 }

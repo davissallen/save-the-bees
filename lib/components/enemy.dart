@@ -13,10 +13,17 @@ class Enemy {
   Sprite deadSprite;
   double flyingSpriteIndex = 0;
   double gravity = Background.heightInTiles.toDouble();
-  
-  double get speed => game.tileSize * 3;
+  Offset targetLocation;
 
-  Enemy(this.game);
+  double get speed => game.tileSize * 2;
+
+  Enemy(this.game) {
+    setTargetLocation();
+  }
+
+  void setTargetLocation() {
+    targetLocation = game.center;
+  }
 
   void render(Canvas c) {
     if (isDead) {
@@ -34,6 +41,20 @@ class Enemy {
 
     if (isDead) {
       enemyRect = enemyRect.translate(0, game.tileSize * gravity * t);
+      return;
+    }
+
+    double stepDistance = speed * t;
+    Offset toTarget = targetLocation - Offset(enemyRect.left, enemyRect.top);
+    if (stepDistance < toTarget.distance) {
+      // If it can't be reached in one step.
+      Offset stepToTarget = Offset.fromDirection(toTarget.direction, stepDistance);
+      enemyRect = enemyRect.shift(stepToTarget);
+    } else {
+      // If it is less than one step away.
+      enemyRect = enemyRect.shift(toTarget);
+      // TODO: End the game.
+      print('You lost!');
     }
   }
 
