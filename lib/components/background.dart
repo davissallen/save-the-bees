@@ -7,8 +7,8 @@ class Background {
   final SaveTheBeesGame game;
   Sprite bgSprite;
   Rect bgRect;
-  static final int heightInTiles = 12;
-  static final int widthInTiles = 6;
+  static final int heightInTiles = 10;
+  static final int widthInTiles = 5;
 
   Background(this.game) {
     bgSprite = Sprite('bg.png');

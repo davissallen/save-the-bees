@@ -12,8 +12,8 @@ class Pesticide extends Enemy {
     enemyRect = Rect.fromLTWH(
       x,
       y,
-      game.tileSize * relativeSize,
-      game.tileSize * relativeSize,
+      game.tileSize * (1.5 * relativeSize),
+      game.tileSize * 1.5,
     );
     flyingSprite = List<Sprite>();
     flyingSprite.add(Sprite('pesticide.png'));

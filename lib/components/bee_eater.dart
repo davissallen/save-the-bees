@@ -12,8 +12,8 @@ class BeeEater extends Enemy {
     enemyRect = Rect.fromLTWH(
       x,
       y,
-      game.tileSize * relativeSize,
-      game.tileSize * relativeSize,
+      game.tileSize * (1.5 * relativeSize),
+      game.tileSize * (1.5 * relativeSize),
     );
     flyingSprite = List<Sprite>();
     flyingSprite.add(Sprite('bee-eater.png'));
