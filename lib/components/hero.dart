@@ -11,6 +11,7 @@ class Hero {
   List<Sprite> flyingSprite;
   Sprite deadSprite;
   double flyingSpriteIndex = 0;
+  static const int wingFlapsPerSecond = 15;
 
   Hero(this.game, double x, double y) {
     heroRect = Rect.fromLTWH(x, y, game.tileSize, game.tileSize);
@@ -32,7 +33,7 @@ class Hero {
       }
       heroRect = heroRect.translate(0, game.tileSize * 3 * t);
     } else {
-      flyingSpriteIndex += 12 * t;
+      flyingSpriteIndex += wingFlapsPerSecond * t;
       if (flyingSpriteIndex >= 2) {
         flyingSpriteIndex -= 2;
       }
