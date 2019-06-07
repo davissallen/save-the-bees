@@ -54,31 +54,50 @@ class SaveTheBeesGame extends Game {
   }
 
   void spawnEnemy() {
-    double randomX = random.nextDouble() *
-        (screenSize.width - (tileSize * 1.5 * BeeEater.relativeSize));
-    double randomY = random.nextDouble() *
-        (screenSize.height - (tileSize * 1.5 * BeeEater.relativeSize));
+    //spawn from 1 of 4 corners.
+    int randomCorner = random.nextInt(4);
+
+    double x, y;
+
+    switch (randomCorner) {
+      case 0:
+        x = 0;
+        y = 0;
+        break;
+      case 1:
+        x = screenSize.width - tileSize;
+        y = 0;
+        break;
+      case 2:
+        x = screenSize.width - tileSize;
+        y = screenSize.height - tileSize;
+        break;
+      case 3:
+        x = 0;
+        y = screenSize.height - tileSize;
+        break;
+    }
 
     Enemy e;
     switch (random.nextInt(4)) {
-    case 0:
-    e = Pesticide(this, randomX, randomY);
-    break;
-    case 1:
-    e = Soap(this, randomX, randomY);
-    break;
-    case 2:
-    e = BeeEater(this, randomX, randomY);
-    break;
-    case 3:
-    e = FlySwatter(this, randomX, randomY);
-    break;
+      case 0:
+        e = Pesticide(this, x, y);
+        break;
+      case 1:
+        e = Soap(this, x, y);
+        break;
+      case 2:
+        e = BeeEater(this, x, y);
+        break;
+      case 3:
+        e = FlySwatter(this, x, y);
+        break;
     }
 
     if (enemies.length == 0) {
-    enemies.add(e);
+      enemies.add(e);
     } else {
-    enemiesInQueue.add(e);
+      enemiesInQueue.add(e);
     }
   }
 

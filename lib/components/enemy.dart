@@ -13,6 +13,8 @@ class Enemy {
   Sprite deadSprite;
   double flyingSpriteIndex = 0;
   double gravity = Background.heightInTiles.toDouble();
+  
+  double get speed => game.tileSize * 3;
 
   Enemy(this.game);
 
