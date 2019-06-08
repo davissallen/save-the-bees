@@ -50,8 +50,10 @@ flutter:
     - assets/images/bee-2.png
     - assets/images/bee-dead.png
     - assets/images/bg.png
+    - assets/images/credits.png
     - assets/images/fly-swatter.png
     - assets/images/fly-swatter-dead.png
+    - assets/images/help.png
     - assets/images/logo.png
     - assets/images/lose.png
     - assets/images/pesticide.png
