@@ -11,7 +11,7 @@ class Background {
   static final int widthInTiles = 5;
 
   Background(this.game) {
-    bgSprite = Sprite('bg.png');
+    bgSprite = Sprite('bg/bg.png');
     bgRect = Rect.fromLTWH(
       0,
       game.screenSize.height - (game.tileSize * heightInTiles),

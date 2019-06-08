@@ -43,24 +43,35 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/bee.png
-    - assets/images/bee-eater.png
-    - assets/images/bee-eater-dead.png
-    - assets/images/bee-1.png
-    - assets/images/bee-2.png
-    - assets/images/bee-dead.png
-    - assets/images/bg.png
-    - assets/images/credits.png
-    - assets/images/fly-swatter.png
-    - assets/images/fly-swatter-dead.png
-    - assets/images/help.png
-    - assets/images/logo.png
-    - assets/images/lose.png
-    - assets/images/pesticide.png
-    - assets/images/pesticide-dead.png
-    - assets/images/soap.png
-    - assets/images/soap-dead.png
-    - assets/images/start.png
+    - assets/images/bg
+    - assets/images/bg/bg.png
+
+    - assets/images/branding
+    - assets/images/branding/logo.png
+
+    - assets/images/enemies
+    - assets/images/enemies/bee-eater.png
+    - assets/images/enemies/bee-eater-dead.png
+    - assets/images/enemies/pesticide.png
+    - assets/images/enemies/pesticide-dead.png
+    - assets/images/enemies/soap.png
+    - assets/images/enemies/soap-dead.png
+    - assets/images/enemies/fly-swatter.png
+    - assets/images/enemies/fly-swatter-dead.png
+
+    - assets/images/heroes
+    - assets/images/heroes/bee.png
+    - assets/images/heroes/bee-1.png
+    - assets/images/heroes/bee-2.png
+    - assets/images/heroes/bee-dead.png
+
+    - assets/images/menu
+    - assets/images/menu/credits.png
+    - assets/images/menu/help.png
+
+    - assets/images/ui
+    - assets/images/ui/lose.png
+    - assets/images/ui/start.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

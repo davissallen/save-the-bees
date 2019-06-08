@@ -19,7 +19,7 @@ class Pesticide extends Enemy {
       game.tileSize * relativeSize,
     );
     flyingSprite = List<Sprite>();
-    flyingSprite.add(Sprite('pesticide.png'));
-    deadSprite = Sprite('pesticide-dead.png');
+    flyingSprite.add(Sprite('enemies/pesticide.png'));
+    deadSprite = Sprite('enemies/pesticide-dead.png');
   }
 }

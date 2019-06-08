@@ -17,8 +17,8 @@ class Soap extends Enemy {
       game.tileSize * relativeSize,
       game.tileSize * relativeSize,
     );    flyingSprite = List<Sprite>();
-    flyingSprite.add(Sprite('soap.png'));
-    deadSprite = Sprite('soap-dead.png');
+    flyingSprite.add(Sprite('enemies/soap.png'));
+    deadSprite = Sprite('enemies/soap-dead.png');
   }
 
 }
