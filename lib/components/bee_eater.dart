@@ -8,6 +8,8 @@ import 'package:save_the_bees/save_the_bees_game.dart';
 class BeeEater extends Enemy {
   static final double relativeSize = 1.5;
 
+  double get speed => game.tileSize * 4;
+
   BeeEater(SaveTheBeesGame game, double x, double y) : super(game) {
     enemyRect = Rect.fromLTWH(
       x,

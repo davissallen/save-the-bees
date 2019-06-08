@@ -16,10 +16,13 @@ void main() async {
     'bg.png',
     'fly-swatter.png',
     'fly-swatter-dead.png',
+    'logo.png',
+    'lose.png',
     'pesticide.png',
     'pesticide-dead.png',
     'soap.png',
     'soap-dead.png',
+    'start.png',
   ]);
 
   Util flameUtil = Util();

@@ -51,9 +51,11 @@ class SaveTheBeesGame extends Game {
 
   void resize(Size size) {
     screenSize = size;
-    // TODO: make this smarter by including the dimensions of the hero.
-    center = Offset(size.width / 2, size.height / 2);
     tileSize = screenSize.width / Background.widthInTiles;
+    center = Offset(
+      (size.width - tileSize) / 2,
+      (size.height - tileSize) / 2,
+    );
   }
 
   void spawnEnemy() {

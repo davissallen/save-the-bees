@@ -8,6 +8,9 @@ import 'package:save_the_bees/save_the_bees_game.dart';
 class Pesticide extends Enemy {
   static final double relativeSize = 1;
 
+  double get speed => game.tileSize * 2;
+
+
   Pesticide(SaveTheBeesGame game, double x, double y) : super(game) {
     enemyRect = Rect.fromLTWH(
       x,

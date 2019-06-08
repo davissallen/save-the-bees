@@ -15,7 +15,7 @@ class Enemy {
   double gravity = Background.heightInTiles.toDouble();
   Offset targetLocation;
 
-  double get speed => game.tileSize * 2;
+  double get speed => game.tileSize * 1.5;
 
   Enemy(this.game) {
     setTargetLocation();
