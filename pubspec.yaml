@@ -43,13 +43,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/bg
     - assets/images/bg/bg.png
 
-    - assets/images/branding
     - assets/images/branding/logo.png
 
-    - assets/images/enemies
     - assets/images/enemies/bee-eater.png
     - assets/images/enemies/bee-eater-dead.png
     - assets/images/enemies/pesticide.png
@@ -59,17 +56,14 @@ flutter:
     - assets/images/enemies/fly-swatter.png
     - assets/images/enemies/fly-swatter-dead.png
 
-    - assets/images/heroes
     - assets/images/heroes/bee.png
     - assets/images/heroes/bee-1.png
     - assets/images/heroes/bee-2.png
     - assets/images/heroes/bee-dead.png
 
-    - assets/images/menu
     - assets/images/menu/credits.png
     - assets/images/menu/help.png
 
-    - assets/images/ui
     - assets/images/ui/lose.png
     - assets/images/ui/start.png
 

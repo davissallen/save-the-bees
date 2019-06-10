@@ -53,8 +53,7 @@ class Enemy {
     } else {
       // If it is less than one step away.
       enemyRect = enemyRect.shift(toTarget);
-      // TODO: End the game.
-      print('You lost!');
+      this.game.hero.die();
     }
   }
 

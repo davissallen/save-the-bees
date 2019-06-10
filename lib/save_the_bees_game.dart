@@ -12,6 +12,11 @@ import 'package:save_the_bees/components/pesticide.dart';
 import 'package:save_the_bees/components/bee_eater.dart';
 import 'package:save_the_bees/components/soap.dart';
 import 'package:save_the_bees/components/fly_swatter.dart';
+import 'package:save_the_bees/view.dart';
+import 'package:save_the_bees/views/home.dart';
+import 'package:save_the_bees/components/start-button.dart';
+import 'package:save_the_bees/views/loser.dart';
+import 'package:save_the_bees/controllers/enemy_spawner.dart';
 
 class SaveTheBeesGame extends Game {
   Size screenSize;
@@ -22,6 +27,11 @@ class SaveTheBeesGame extends Game {
   Background background;
   Hero hero;
   Offset center;
+  View activeView = View.home;
+  HomeView homeView;
+  StartButton startButton;
+  LoserView loserView;
+  EnemySpawner spawner;
 
   SaveTheBeesGame() {
     this.initialize();
@@ -33,20 +43,42 @@ class SaveTheBeesGame extends Game {
     enemiesInQueue = List<Enemy>();
     resize(await Flame.util.initialDimensions());
     background = Background(this);
-    spawnEnemy();
-    spawnHero();
+    homeView = HomeView(this);
+    startButton = StartButton(this);
+    loserView = LoserView(this);
+    spawner = EnemySpawner(this);
   }
 
   void render(Canvas canvas) {
     background.render(canvas);
-    enemies.forEach((Enemy e) => e.render(canvas));
-    hero.render(canvas);
+
+    switch (activeView) {
+
+      case View.home:
+        homeView.render(canvas);
+        startButton.render(canvas);
+        break;
+
+      case View.playing:
+        hero.render(canvas);
+        enemies.forEach((Enemy e) => e.render(canvas));
+        break;
+
+      case View.lost:
+        loserView.render(canvas);
+        startButton.render(canvas);
+        break;
+    }
+
   }
 
   void update(double t) {
-    enemies.forEach((Enemy e) => e.update(t));
-    enemies.removeWhere((Enemy e) => e.isOffScreen);
-    hero.update(t);
+    spawner.update(t);
+    if (activeView == View.playing) {
+      enemies.forEach((Enemy e) => e.update(t));
+      enemies.removeWhere((Enemy e) => e.isOffScreen);
+      hero.update(t);
+    }
   }
 
   void resize(Size size) {
@@ -107,21 +139,46 @@ class SaveTheBeesGame extends Game {
   }
 
   void onTapDown(TapDownDetails d) {
-    enemies.forEach((Enemy e) {
-      if (!e.isDead && e.enemyRect.contains(d.globalPosition)) {
-        e.onTapDown();
-        spawnEnemy();
-      }
-    });
-    enemies.addAll(enemiesInQueue);
-    enemiesInQueue = List<Enemy>();
+    switch (activeView) {
 
-    if (hero.heroRect.contains(d.globalPosition)) {
-      hero.onTapDown();
+      case View.playing:
+        enemies.forEach((Enemy e) {
+          if (!e.isDead && e.enemyRect.contains(d.globalPosition)) {
+            e.onTapDown();
+          }
+        });
+        enemies.addAll(enemiesInQueue);
+        enemiesInQueue = List<Enemy>();
+        if (hero.heroRect.contains(d.globalPosition)) hero.onTapDown();
+        break;
+
+      case View.home:
+        if (startButton.rect.contains(d.globalPosition)) {
+          startButton.onTapDown();
+        }
+        break;
+
+      case View.lost:
+        if (startButton.rect.contains(d.globalPosition)) {
+          startButton.onTapDown();
+        }
+        break;
     }
+
   }
 
   void spawnHero() {
     hero = Bee(this, center.dx, center.dy);
+  }
+
+  void endGame() {
+    this.activeView = View.lost;
+  }
+
+  void startGame() {
+    this.spawner.start();
+    this.hero = null;
+    spawnHero();
+    this.activeView = View.playing;
   }
 }

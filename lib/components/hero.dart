@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flame/sprite.dart';
 
 import 'package:save_the_bees/save_the_bees_game.dart';
+import 'package:save_the_bees/view.dart';
 
 class Hero {
   final SaveTheBeesGame game;
@@ -30,6 +31,7 @@ class Hero {
     if (isDead) {
       if (heroRect.top > game.screenSize.height) {
         isOffScreen = true;
+        game.endGame();
       }
       heroRect = heroRect.translate(0, game.tileSize * 3 * t);
     } else {
