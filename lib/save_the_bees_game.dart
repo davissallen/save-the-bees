@@ -12,11 +12,14 @@ import 'package:save_the_bees/components/pesticide.dart';
 import 'package:save_the_bees/components/bee_eater.dart';
 import 'package:save_the_bees/components/soap.dart';
 import 'package:save_the_bees/components/fly_swatter.dart';
+import 'package:save_the_bees/controllers/cloud_spawner.dart';
 import 'package:save_the_bees/view.dart';
 import 'package:save_the_bees/views/home.dart';
 import 'package:save_the_bees/components/start-button.dart';
 import 'package:save_the_bees/views/loser.dart';
 import 'package:save_the_bees/controllers/enemy_spawner.dart';
+
+import 'components/cloud.dart';
 
 class SaveTheBeesGame extends Game {
   Size screenSize;
@@ -31,7 +34,9 @@ class SaveTheBeesGame extends Game {
   HomeView homeView;
   StartButton startButton;
   LoserView loserView;
-  EnemySpawner spawner;
+  EnemySpawner enemySpawner;
+  List<Cloud> clouds;
+  CloudSpawner cloudSpawner;
 
   SaveTheBeesGame() {
     this.initialize();
@@ -46,11 +51,14 @@ class SaveTheBeesGame extends Game {
     homeView = HomeView(this);
     startButton = StartButton(this);
     loserView = LoserView(this);
-    spawner = EnemySpawner(this);
+    enemySpawner = EnemySpawner(this);
+    clouds = List<Cloud>();
+    cloudSpawner = CloudSpawner(this);
   }
 
   void render(Canvas canvas) {
     background.render(canvas);
+    clouds.forEach((Cloud c) => c.render(canvas));
 
     switch (activeView) {
 
@@ -73,7 +81,11 @@ class SaveTheBeesGame extends Game {
   }
 
   void update(double t) {
-    spawner.update(t);
+    cloudSpawner.update(t);
+    clouds.forEach((Cloud c) => c.update(t));
+    clouds.removeWhere((Cloud c) => c.isOffScreen);
+
+    enemySpawner.update(t);
     if (activeView == View.playing) {
       enemies.forEach((Enemy e) => e.update(t));
       enemies.removeWhere((Enemy e) => e.isOffScreen);
@@ -176,9 +188,13 @@ class SaveTheBeesGame extends Game {
   }
 
   void startGame() {
-    this.spawner.start();
+    this.enemySpawner.start();
     this.hero = null;
     spawnHero();
     this.activeView = View.playing;
+  }
+
+  void spawnCloud() {
+    this.clouds.add(Cloud(this));
   }
 }
