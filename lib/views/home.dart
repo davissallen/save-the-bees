@@ -10,7 +10,7 @@ class HomeView {
   HomeView(this.game) {
     titleRect = Rect.fromLTWH(
       game.tileSize / 2,
-      (game.screenSize.height / 2) - (game.tileSize * 2),
+      (game.screenSize.height / 2) - (game.tileSize * 2.5),
       game.tileSize * 4,
       game.tileSize * 3,
     );

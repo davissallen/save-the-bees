@@ -14,12 +14,14 @@ import 'package:save_the_bees/components/soap.dart';
 import 'package:save_the_bees/components/fly_swatter.dart';
 import 'package:save_the_bees/controllers/cloud_spawner.dart';
 import 'package:save_the_bees/view.dart';
+import 'package:save_the_bees/views/help_view.dart';
 import 'package:save_the_bees/views/home.dart';
-import 'package:save_the_bees/components/start-button.dart';
+import 'package:save_the_bees/components/start_button.dart';
 import 'package:save_the_bees/views/loser.dart';
 import 'package:save_the_bees/controllers/enemy_spawner.dart';
-
-import 'components/cloud.dart';
+import 'package:save_the_bees/components/cloud.dart';
+import 'package:save_the_bees/components/help_button.dart';
+import 'package:save_the_bees/components/credits_button.dart';
 
 class SaveTheBeesGame extends Game {
   Size screenSize;
@@ -37,6 +39,9 @@ class SaveTheBeesGame extends Game {
   EnemySpawner enemySpawner;
   List<Cloud> clouds;
   CloudSpawner cloudSpawner;
+  HelpButton helpButton;
+  CreditsButton creditsButton;
+  HelpView helpView;
 
   SaveTheBeesGame() {
     this.initialize();
@@ -54,6 +59,9 @@ class SaveTheBeesGame extends Game {
     enemySpawner = EnemySpawner(this);
     clouds = List<Cloud>();
     cloudSpawner = CloudSpawner(this);
+    helpButton = HelpButton(this);
+    creditsButton = CreditsButton(this);
+    helpView = HelpView(this);
   }
 
   void render(Canvas canvas) {
@@ -65,6 +73,8 @@ class SaveTheBeesGame extends Game {
       case View.home:
         homeView.render(canvas);
         startButton.render(canvas);
+        helpButton.render(canvas);
+        creditsButton.render(canvas);
         break;
 
       case View.playing:
@@ -75,6 +85,12 @@ class SaveTheBeesGame extends Game {
       case View.lost:
         loserView.render(canvas);
         startButton.render(canvas);
+        break;
+
+      case View.help:
+        break;
+      case View.credits:
+        // TODO: Handle this case.
         break;
     }
 
@@ -168,12 +184,24 @@ class SaveTheBeesGame extends Game {
         if (startButton.rect.contains(d.globalPosition)) {
           startButton.onTapDown();
         }
+        if (helpButton.rect.contains(d.globalPosition)) {
+          helpButton.onTapDown();
+        }
+        if (creditsButton.rect.contains(d.globalPosition)) {
+          creditsButton.onTapDown();
+        }
+
         break;
 
       case View.lost:
         if (startButton.rect.contains(d.globalPosition)) {
           startButton.onTapDown();
         }
+        break;
+      case View.help:
+        break;
+      case View.credits:
+        // TODO: Handle this case.
         break;
     }
 

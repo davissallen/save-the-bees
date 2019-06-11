@@ -11,7 +11,7 @@ class StartButton {
   StartButton(this.game) {
     rect = Rect.fromLTWH(
       game.tileSize * 1.5,
-      game.screenSize.height - (game.tileSize * 1.75),
+      game.screenSize.height - (game.tileSize * 3),
       game.tileSize * 2,
       game.tileSize * 1,
     );
