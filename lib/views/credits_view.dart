@@ -14,7 +14,7 @@ class CreditsView {
       game.tileSize * 8,
       game.tileSize * 12,
     );
-    sprite = Sprite('ui/dialog-credits.png');
+    sprite = Sprite('ui/dialog-credits.png');  // TODO
   }
 
   void render(Canvas c) {

@@ -14,7 +14,7 @@ class HelpView {
       game.tileSize * 8,
       game.tileSize * 12,
     );
-    sprite = Sprite('ui/dialog-help.png');
+    sprite = Sprite('ui/dialog-help.png');  // TODO
   }
 
   void render(Canvas c) {

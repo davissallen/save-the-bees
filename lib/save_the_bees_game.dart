@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:save_the_bees/components/hero.dart';
 import 'package:save_the_bees/components/bee.dart';
@@ -14,6 +15,7 @@ import 'package:save_the_bees/components/soap.dart';
 import 'package:save_the_bees/components/fly_swatter.dart';
 import 'package:save_the_bees/controllers/cloud_spawner.dart';
 import 'package:save_the_bees/view.dart';
+import 'package:save_the_bees/views/credits_view.dart';
 import 'package:save_the_bees/views/help_view.dart';
 import 'package:save_the_bees/views/home.dart';
 import 'package:save_the_bees/components/start_button.dart';
@@ -22,6 +24,8 @@ import 'package:save_the_bees/controllers/enemy_spawner.dart';
 import 'package:save_the_bees/components/cloud.dart';
 import 'package:save_the_bees/components/help_button.dart';
 import 'package:save_the_bees/components/credits_button.dart';
+import 'package:save_the_bees/components/score_display.dart';
+import 'package:save_the_bees/components/high_score_display.dart';
 
 class SaveTheBeesGame extends Game {
   Size screenSize;
@@ -42,9 +46,15 @@ class SaveTheBeesGame extends Game {
   HelpButton helpButton;
   CreditsButton creditsButton;
   HelpView helpView;
+  CreditsView creditsView;
+  int score;
+  ScoreDisplay scoreDisplay;
+  SharedPreferences storage;
+  HighscoreDisplay highscoreDisplay;
 
-  SaveTheBeesGame() {
+  SaveTheBeesGame(storage) {
     this.initialize();
+    this.storage = storage;
   }
 
   void initialize() async {
@@ -61,7 +71,11 @@ class SaveTheBeesGame extends Game {
     cloudSpawner = CloudSpawner(this);
     helpButton = HelpButton(this);
     creditsButton = CreditsButton(this);
-    helpView = HelpView(this);
+//    creditsView = CreditsView(this);  TODO
+//    helpView = HelpView(this);  TODO
+    score = 0;
+    scoreDisplay = ScoreDisplay(this);
+    highscoreDisplay = HighscoreDisplay(this);
   }
 
   void render(Canvas canvas) {
@@ -80,6 +94,7 @@ class SaveTheBeesGame extends Game {
       case View.playing:
         hero.render(canvas);
         enemies.forEach((Enemy e) => e.render(canvas));
+        scoreDisplay.render(canvas);
         break;
 
       case View.lost:
@@ -94,6 +109,8 @@ class SaveTheBeesGame extends Game {
         break;
     }
 
+    highscoreDisplay.render(canvas);
+
   }
 
   void update(double t) {
@@ -106,6 +123,7 @@ class SaveTheBeesGame extends Game {
       enemies.forEach((Enemy e) => e.update(t));
       enemies.removeWhere((Enemy e) => e.isOffScreen);
       hero.update(t);
+      scoreDisplay.update(t);
     }
   }
 
@@ -216,6 +234,7 @@ class SaveTheBeesGame extends Game {
   }
 
   void startGame() {
+    this.score = 0;
     this.enemySpawner.start();
     this.hero = null;
     spawnHero();

@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flame/sprite.dart';
 import 'package:save_the_bees/components/background.dart';
-
 import 'package:save_the_bees/save_the_bees_game.dart';
+import 'package:save_the_bees/view.dart';
 
 class Enemy {
   final SaveTheBeesGame game;
@@ -58,8 +58,13 @@ class Enemy {
   }
 
   void onTapDown() {
-    if (!isDead) {
-      die();
+    if (game.activeView == View.playing) {
+      if (!isDead) die();
+      if (!game.hero.isDead) game.score += 1;
+      if (game.score > (game.storage.get('highscore') ?? 0)) {
+        game.storage.setInt('highscore', game.score);
+        game.highscoreDisplay.updateHighscore();
+      }
     }
   }
 

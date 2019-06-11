@@ -14,7 +14,7 @@ class FlySwatter extends Enemy {
     enemyRect = Rect.fromLTWH(
       x,
       y,
-      game.tileSize * relativeSize,
+      game.tileSize * relativeSize / 3.46,
       game.tileSize * relativeSize,
     );
     flyingSprite = List<Sprite>();
