@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:save_the_bees/components/background.dart';
 import 'package:save_the_bees/save_the_bees_game.dart';
@@ -48,7 +49,8 @@ class Enemy {
     Offset toTarget = targetLocation - Offset(enemyRect.left, enemyRect.top);
     if (stepDistance < toTarget.distance) {
       // If it can't be reached in one step.
-      Offset stepToTarget = Offset.fromDirection(toTarget.direction, stepDistance);
+      Offset stepToTarget =
+          Offset.fromDirection(toTarget.direction, stepDistance);
       enemyRect = enemyRect.shift(stepToTarget);
     } else {
       // If it is less than one step away.
@@ -70,5 +72,8 @@ class Enemy {
 
   void die() {
     isDead = true;
+    Flame.audio
+        .play('sfx/kill' + (game.random.nextInt(6) + 1).toString() + '.wav');
   }
+
 }

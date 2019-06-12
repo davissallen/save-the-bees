@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
@@ -31,7 +32,6 @@ class SaveTheBeesGame extends Game {
   Size screenSize;
   double tileSize;
   List<Enemy> enemies;
-  List<Enemy> enemiesInQueue;
   Random random;
   Background background;
   Hero hero;
@@ -51,6 +51,7 @@ class SaveTheBeesGame extends Game {
   ScoreDisplay scoreDisplay;
   SharedPreferences storage;
   HighscoreDisplay highscoreDisplay;
+  AudioPlayer backgroundMusic;
 
   SaveTheBeesGame(storage) {
     this.initialize();
@@ -60,7 +61,6 @@ class SaveTheBeesGame extends Game {
   void initialize() async {
     random = new Random();
     enemies = List<Enemy>();
-    enemiesInQueue = List<Enemy>();
     resize(await Flame.util.initialDimensions());
     background = Background(this);
     homeView = HomeView(this);
@@ -76,6 +76,8 @@ class SaveTheBeesGame extends Game {
     score = 0;
     scoreDisplay = ScoreDisplay(this);
     highscoreDisplay = HighscoreDisplay(this);
+    backgroundMusic = await Flame.audio.loop('music/bensound-summer.mp3', volume: 0.25);
+    playBackgroundMusic();
   }
 
   void render(Canvas canvas) {
@@ -179,8 +181,6 @@ class SaveTheBeesGame extends Game {
 
     if (enemies.length == 0) {
       enemies.add(e);
-    } else {
-      enemiesInQueue.add(e);
     }
   }
 
@@ -193,8 +193,6 @@ class SaveTheBeesGame extends Game {
             e.onTapDown();
           }
         });
-        enemies.addAll(enemiesInQueue);
-        enemiesInQueue = List<Enemy>();
         if (hero.heroRect.contains(d.globalPosition)) hero.onTapDown();
         break;
 
@@ -243,5 +241,9 @@ class SaveTheBeesGame extends Game {
 
   void spawnCloud() {
     this.clouds.add(Cloud(this));
+  }
+
+  void playBackgroundMusic() {
+    backgroundMusic.resume();
   }
 }

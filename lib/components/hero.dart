@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 
 import 'package:save_the_bees/save_the_bees_game.dart';
@@ -43,12 +44,13 @@ class Hero {
   }
 
   void onTapDown() {
-    if (!isDead) {
-      die();
-    }
+    die();
   }
 
   void die() {
-    isDead = true;
+    if (!isDead) {
+      isDead = true;
+      Flame.audio.play('sfx/die.wav');
+    }
   }
 }

@@ -72,3 +72,16 @@ flutter:
 
     - assets/images/ui/lose.png
     - assets/images/ui/start.png
+    - assets/images/ui/music-off.svg
+    - assets/images/ui/music-on.svg
+    - assets/images/ui/sfx-off.svg
+    - assets/images/ui/sfx-on.svg
+
+    - assets/audio/sfx/kill1.wav
+    - assets/audio/sfx/kill2.wav
+    - assets/audio/sfx/kill3.wav
+    - assets/audio/sfx/kill4.wav
+    - assets/audio/sfx/kill5.wav
+    - assets/audio/sfx/kill6.wav
+    - assets/audio/sfx/die.wav
+    - assets/audio/music/bensound-summer.mp3  # from www.bensound.com
