@@ -17,8 +17,7 @@ class FlySwatter extends Enemy {
       game.tileSize * relativeSize / 3.46,
       game.tileSize * relativeSize,
     );
-    flyingSprite = List<Sprite>();
-    flyingSprite.add(Sprite('enemies/fly-swatter.png'));
+    aliveSprite = (Sprite('enemies/fly-swatter.png'));
     deadSprite = Sprite('enemies/fly-swatter-dead.png');
   }
 

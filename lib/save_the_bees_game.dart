@@ -52,10 +52,28 @@ class SaveTheBeesGame extends Game {
   SharedPreferences storage;
   HighscoreDisplay highscoreDisplay;
   AudioPlayer backgroundMusic;
+  bool backgroundMusicIsPlaying = false;
 
   SaveTheBeesGame(storage) {
     this.initialize();
     this.storage = storage;
+  }
+
+  @override
+  void lifecycleStateChange(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        playBackgroundMusic();
+        break;
+      case AppLifecycleState.inactive:
+        pauseBackgroundMusic();
+        break;
+      case AppLifecycleState.paused:
+        pauseBackgroundMusic();
+        break;
+      case AppLifecycleState.suspending:
+        break;
+    }
   }
 
   void initialize() async {
@@ -106,6 +124,7 @@ class SaveTheBeesGame extends Game {
 
       case View.help:
         break;
+
       case View.credits:
         // TODO: Handle this case.
         break;
@@ -116,9 +135,11 @@ class SaveTheBeesGame extends Game {
   }
 
   void update(double t) {
-    cloudSpawner.update(t);
-    clouds.forEach((Cloud c) => c.update(t));
-    clouds.removeWhere((Cloud c) => c.isOffScreen);
+    if (cloudSpawner != null) {
+      cloudSpawner.update(t);
+      clouds.forEach((Cloud c) => c.update(t));
+      clouds.removeWhere((Cloud c) => c.isOffScreen);
+    }
 
     enemySpawner.update(t);
     if (activeView == View.playing) {
@@ -179,9 +200,7 @@ class SaveTheBeesGame extends Game {
         break;
     }
 
-    if (enemies.length == 0) {
-      enemies.add(e);
-    }
+    enemies.add(e);
   }
 
   void onTapDown(TapDownDetails d) {
@@ -243,7 +262,19 @@ class SaveTheBeesGame extends Game {
     this.clouds.add(Cloud(this));
   }
 
-  void playBackgroundMusic() {
-    backgroundMusic.resume();
+  void playBackgroundMusic({bool fromBeginning = false}) {
+    if (backgroundMusic != null) {
+      if (fromBeginning) {
+        backgroundMusic.seek(Duration.zero);
+      }
+      backgroundMusic.resume();
+      backgroundMusicIsPlaying = true;
+    }
+  }
+
+  void pauseBackgroundMusic() {
+    if (backgroundMusic != null && backgroundMusicIsPlaying) {
+      backgroundMusic.pause();
+    }
   }
 }

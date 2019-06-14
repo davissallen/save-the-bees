@@ -15,10 +15,9 @@ class BeeEater extends Enemy {
       x,
       y,
       game.tileSize * relativeSize,
-      game.tileSize * relativeSize / 3.23,
+      game.tileSize * relativeSize / 2.35,
     );
-    flyingSprite = List<Sprite>();
-    flyingSprite.add(Sprite('enemies/bee-eater.png'));
+    aliveSprite = (Sprite('enemies/bee-eater.png'));
     deadSprite = Sprite('enemies/bee-eater-dead.png');
   }
 }

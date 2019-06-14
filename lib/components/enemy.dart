@@ -10,9 +10,8 @@ class Enemy {
   Rect enemyRect;
   bool isDead = false;
   bool isOffScreen = false;
-  List<Sprite> flyingSprite;
   Sprite deadSprite;
-  double flyingSpriteIndex = 0;
+  Sprite aliveSprite;
   double gravity = Background.heightInTiles.toDouble();
   Offset targetLocation;
 
@@ -28,10 +27,9 @@ class Enemy {
 
   void render(Canvas c) {
     if (isDead) {
-      deadSprite.renderRect(c, enemyRect.inflate(2));
+      deadSprite.renderRect(c, enemyRect);
     } else {
-      flyingSprite[flyingSpriteIndex.toInt()]
-          .renderRect(c, enemyRect.inflate(2));
+      aliveSprite.renderRect(c, enemyRect);
     }
   }
 
