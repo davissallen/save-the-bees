@@ -1,0 +1,87 @@
+name: save_the_bees
+description: A new Flutter project.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+version: 0.0.0
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+  flame: ^0.10.2
+  shared_preferences: ^0.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  fonts:
+    - family: munro
+      fonts:
+        - asset: fonts/munro.ttf
+
+  assets:
+    - assets/images/bg/bg.png
+    - assets/images/bg/cloud.png
+
+    - assets/images/branding/logo.png
+
+    - assets/images/enemies/bee-eater.png
+    - assets/images/enemies/bee-eater-dead.png
+    - assets/images/enemies/pesticide.png
+    - assets/images/enemies/pesticide-dead.png
+    - assets/images/enemies/soap.png
+    - assets/images/enemies/soap-dead.png
+    - assets/images/enemies/fly-swatter.png
+    - assets/images/enemies/fly-swatter-dead.png
+
+    - assets/images/heroes/bee.png
+    - assets/images/heroes/bee-1.png
+    - assets/images/heroes/bee-2.png
+    - assets/images/heroes/bee-dead.png
+
+    - assets/images/menu/credits.png
+    - assets/images/menu/help.png
+
+    - assets/images/ui/lose.png
+    - assets/images/ui/start.png
+    - assets/images/ui/music-off.svg
+    - assets/images/ui/music-on.svg
+    - assets/images/ui/sfx-off.svg
+    - assets/images/ui/sfx-on.svg
+
+    - assets/audio/sfx/kill1.wav
+    - assets/audio/sfx/kill2.wav
+    - assets/audio/sfx/kill3.wav
+    - assets/audio/sfx/kill4.wav
+    - assets/audio/sfx/kill5.wav
+    - assets/audio/sfx/kill6.wav
+    - assets/audio/sfx/die.wav
+    - assets/audio/music/bensound-summer.mp3  # from www.bensound.com
