@@ -22,7 +22,7 @@ class Enemy {
   }
 
   void setTargetLocation() {
-    targetLocation = game.center;
+    targetLocation = game.hero.heroRect.center;
   }
 
   void render(Canvas c) {
@@ -44,12 +44,11 @@ class Enemy {
     }
 
     double stepDistance = speed * t;
-    Offset toTarget = targetLocation - Offset(enemyRect.left, enemyRect.top);
+    Offset toTarget = targetLocation - enemyRect.center;
     if (stepDistance < toTarget.distance) {
       // If it can't be reached in one step.
-      Offset stepToTarget =
-          Offset.fromDirection(toTarget.direction, stepDistance);
-      enemyRect = enemyRect.shift(stepToTarget);
+      Offset step = Offset.fromDirection(toTarget.direction, stepDistance);
+      enemyRect = enemyRect.shift(step);
     } else {
       // If it is less than one step away.
       enemyRect = enemyRect.shift(toTarget);
@@ -73,5 +72,4 @@ class Enemy {
     Flame.audio
         .play('sfx/kill' + (game.random.nextInt(6) + 1).toString() + '.wav');
   }
-
 }
