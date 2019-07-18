@@ -21,6 +21,7 @@ class Hero {
   Hero(this.game, double x, double y) {
     heroRect = Rect.fromLTWH(x, y, game.tileSize, game.tileSize);
     setTargetLocation();
+    this.game.backgroundMusic.resume();
   }
 
   void setTargetLocation() {
@@ -82,6 +83,20 @@ class Hero {
     if (!isDead) {
       isDead = true;
       Flame.audio.play('sfx/die.wav');
+      // Pause music.
+      this.game.backgroundMusic.pause();
+      // Flash screen.
+      flashScreenOut();
+      // Make enemies disappear.
+      fadeAwayEnemies();
     }
+  }
+
+  void flashScreenOut() {
+    // TODO: Implement me.
+  }
+
+  void fadeAwayEnemies() {
+    // TODO: Implement me.
   }
 }
