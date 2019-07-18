@@ -29,10 +29,11 @@ void main() async {
     'menu/help.png',
     'ui/lose.png',
     'ui/start.png',
-    'ui/music-off.svg',
-    'ui/music-on.svg',
-    'ui/sfx-off.svg',
-    'ui/sfx-on.svg',
+    // .svg images not supported.
+//    'ui/music-off.svg',
+//    'ui/music-on.svg',
+//    'ui/sfx-off.svg',
+//    'ui/sfx-on.svg',
   ]);
 
   Flame.audio.disableLog();

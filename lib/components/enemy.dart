@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/material.dart';
 import 'package:save_the_bees/components/background.dart';
 import 'package:save_the_bees/save_the_bees_game.dart';
 import 'package:save_the_bees/view.dart';
@@ -14,6 +15,7 @@ class Enemy {
   Sprite aliveSprite;
   double gravity = Background.heightInTiles.toDouble();
   Offset targetLocation;
+  bool theHeroIsDead = false;
 
   double get speed => game.tileSize * 1.5;
 
@@ -22,7 +24,7 @@ class Enemy {
   }
 
   void setTargetLocation() {
-    targetLocation = game.center;
+    targetLocation = game.hero.heroRect.center;
   }
 
   void render(Canvas c) {
@@ -34,6 +36,14 @@ class Enemy {
   }
 
   void update(double t) {
+
+    if (theHeroIsDead) {
+      // don't move.
+      return;
+    }
+
+    setTargetLocation();
+
     if (enemyRect.top > game.screenSize.height) {
       isOffScreen = true;
     }
@@ -44,12 +54,11 @@ class Enemy {
     }
 
     double stepDistance = speed * t;
-    Offset toTarget = targetLocation - Offset(enemyRect.left, enemyRect.top);
+    Offset toTarget = targetLocation - enemyRect.center;
     if (stepDistance < toTarget.distance) {
       // If it can't be reached in one step.
-      Offset stepToTarget =
-          Offset.fromDirection(toTarget.direction, stepDistance);
-      enemyRect = enemyRect.shift(stepToTarget);
+      Offset step = Offset.fromDirection(toTarget.direction, stepDistance);
+      enemyRect = enemyRect.shift(step);
     } else {
       // If it is less than one step away.
       enemyRect = enemyRect.shift(toTarget);
@@ -74,4 +83,7 @@ class Enemy {
         .play('sfx/kill' + (game.random.nextInt(6) + 1).toString() + '.wav');
   }
 
+  void fadeAway() {
+    theHeroIsDead = true;
+  }
 }

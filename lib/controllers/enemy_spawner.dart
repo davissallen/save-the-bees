@@ -6,11 +6,12 @@ class EnemySpawner {
   final int maxSpawnInterval = 2000;
   final int minSpawnInterval = 333;
   final int intervalChange = 100;
-  final int maxEnemies = 3;
+  int maxEnemies;
   int currentInterval;
   int nextSpawn;
 
   EnemySpawner(this.game) {
+    maxEnemies = 3;
     this.start();
   }
 
@@ -39,6 +40,11 @@ class EnemySpawner {
       }
       nextSpawn = now + currentInterval;
     }
+  }
+
+  void stop() {
+    // set max enemies to -1 so that no new enemies will apear.
+    maxEnemies = -1;
   }
 
 }

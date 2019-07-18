@@ -84,7 +84,6 @@ class SaveTheBeesGame extends Game {
     homeView = HomeView(this);
     startButton = StartButton(this);
     loserView = LoserView(this);
-    enemySpawner = EnemySpawner(this);
     clouds = List<Cloud>();
     cloudSpawner = CloudSpawner(this);
     helpButton = HelpButton(this);
@@ -141,8 +140,8 @@ class SaveTheBeesGame extends Game {
       clouds.removeWhere((Cloud c) => c.isOffScreen);
     }
 
-    enemySpawner.update(t);
     if (activeView == View.playing) {
+      enemySpawner.update(t);
       enemies.forEach((Enemy e) => e.update(t));
       enemies.removeWhere((Enemy e) => e.isOffScreen);
       hero.update(t);
@@ -252,7 +251,7 @@ class SaveTheBeesGame extends Game {
 
   void startGame() {
     this.score = 0;
-    this.enemySpawner.start();
+    this.enemySpawner = EnemySpawner(this);
     this.hero = null;
     spawnHero();
     this.activeView = View.playing;
@@ -276,5 +275,15 @@ class SaveTheBeesGame extends Game {
     if (backgroundMusic != null && backgroundMusicIsPlaying) {
       backgroundMusic.pause();
     }
+  }
+
+  void flashScreenOut() {
+    // TODO: Implement me.
+  }
+
+  void fadeAwayEnemies() {
+    enemies.forEach((Enemy e) {
+      e.fadeAway();
+    });
   }
 }
