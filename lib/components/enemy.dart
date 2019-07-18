@@ -17,9 +17,7 @@ class Enemy {
 
   double get speed => game.tileSize * 1.5;
 
-  Enemy(this.game) {
-    setTargetLocation();
-  }
+  Enemy(this.game);
 
   void setTargetLocation() {
     targetLocation = game.hero.heroRect.center;
@@ -34,6 +32,8 @@ class Enemy {
   }
 
   void update(double t) {
+    setTargetLocation();
+
     if (enemyRect.top > game.screenSize.height) {
       isOffScreen = true;
     }
