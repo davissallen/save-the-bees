@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
+import 'package:save_the_bees/components/enemy.dart';
 
 import 'package:save_the_bees/save_the_bees_game.dart';
 import 'package:save_the_bees/view.dart';
@@ -85,18 +86,13 @@ class Hero {
       Flame.audio.play('sfx/die.wav');
       // Pause music.
       this.game.backgroundMusic.pause();
+      // stop spawner.
+      this.game.enemySpawner.stop();
       // Flash screen.
-      flashScreenOut();
+      this.game.flashScreenOut();
       // Make enemies disappear.
-      fadeAwayEnemies();
+      this.game.fadeAwayEnemies();
     }
   }
 
-  void flashScreenOut() {
-    // TODO: Implement me.
-  }
-
-  void fadeAwayEnemies() {
-    // TODO: Implement me.
-  }
 }

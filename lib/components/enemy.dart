@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
+import 'package:flutter/material.dart';
 import 'package:save_the_bees/components/background.dart';
 import 'package:save_the_bees/save_the_bees_game.dart';
 import 'package:save_the_bees/view.dart';
@@ -14,6 +15,7 @@ class Enemy {
   Sprite aliveSprite;
   double gravity = Background.heightInTiles.toDouble();
   Offset targetLocation;
+  bool theHeroIsDead = false;
 
   double get speed => game.tileSize * 1.5;
 
@@ -34,6 +36,12 @@ class Enemy {
   }
 
   void update(double t) {
+
+    if (theHeroIsDead) {
+      // don't move.
+      return;
+    }
+
     setTargetLocation();
 
     if (enemyRect.top > game.screenSize.height) {
@@ -73,5 +81,9 @@ class Enemy {
     isDead = true;
     Flame.audio
         .play('sfx/kill' + (game.random.nextInt(6) + 1).toString() + '.wav');
+  }
+
+  void fadeAway() {
+    theHeroIsDead = true;
   }
 }

@@ -276,4 +276,14 @@ class SaveTheBeesGame extends Game {
       backgroundMusic.pause();
     }
   }
+
+  void flashScreenOut() {
+    // TODO: Implement me.
+  }
+
+  void fadeAwayEnemies() {
+    enemies.forEach((Enemy e) {
+      e.fadeAway();
+    });
+  }
 }
