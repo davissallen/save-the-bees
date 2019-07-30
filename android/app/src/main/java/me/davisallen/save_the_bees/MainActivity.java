@@ -1,4 +1,4 @@
-package com.example.save_the_bees;
+package me.davisallen.save_the_bees;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
