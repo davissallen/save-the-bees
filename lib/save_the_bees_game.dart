@@ -6,57 +6,84 @@ import 'package:flame/game.dart';
 import 'package:flutter/gestures.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:save_the_bees/components/hero.dart';
-import 'package:save_the_bees/components/bee.dart';
-import 'package:save_the_bees/components/enemy.dart';
-import 'package:save_the_bees/components/background.dart';
-import 'package:save_the_bees/components/pesticide.dart';
-import 'package:save_the_bees/components/bee_eater.dart';
-import 'package:save_the_bees/components/soap.dart';
-import 'package:save_the_bees/components/fly_swatter.dart';
-import 'package:save_the_bees/controllers/cloud_spawner.dart';
+import 'package:save_the_bees/game/hero/hero.dart';
+import 'package:save_the_bees/game/enemy/bee.dart';
+import 'package:save_the_bees/game/enemy/enemy.dart';
+import 'package:save_the_bees/game/background/background.dart';
+import 'package:save_the_bees/game/enemy/pesticide.dart';
+import 'package:save_the_bees/game/enemy/bee_eater.dart';
+import 'package:save_the_bees/game/enemy/soap.dart';
+import 'package:save_the_bees/game/enemy/fly_swatter.dart';
+import 'package:save_the_bees/game/background/cloud_spawner.dart';
 import 'package:save_the_bees/view.dart';
 import 'package:save_the_bees/views/credits_view.dart';
 import 'package:save_the_bees/views/help_view.dart';
 import 'package:save_the_bees/views/home.dart';
 import 'package:save_the_bees/components/start_button.dart';
 import 'package:save_the_bees/views/loser.dart';
-import 'package:save_the_bees/controllers/enemy_spawner.dart';
-import 'package:save_the_bees/components/cloud.dart';
+import 'package:save_the_bees/game/enemy/enemy_spawner.dart';
+import 'package:save_the_bees/game/background/cloud.dart';
 import 'package:save_the_bees/components/help_button.dart';
 import 'package:save_the_bees/components/credits_button.dart';
-import 'package:save_the_bees/components/score_display.dart';
-import 'package:save_the_bees/components/high_score_display.dart';
+import 'package:save_the_bees/game/score/score_display.dart';
+import 'package:save_the_bees/game/score/high_score_display.dart';
 
-class SaveTheBeesGame extends Game {
-  Size screenSize;
-  double tileSize;
-  List<Enemy> enemies;
-  Random random;
-  Background background;
+enum SaveTheBeesGameStatus { playing, waiting, gameOver }
+
+class SaveTheBeesGame extends BaseGame {
+
   Hero hero;
-  Offset center;
-  View activeView = View.home;
-  HomeView homeView;
-  StartButton startButton;
-  LoserView loserView;
-  EnemySpawner enemySpawner;
-  List<Cloud> clouds;
-  CloudSpawner cloudSpawner;
-  HelpButton helpButton;
-  CreditsButton creditsButton;
-  HelpView helpView;
-  CreditsView creditsView;
-  int score;
+  Background background;
   ScoreDisplay scoreDisplay;
+  GameOverDisplay gameOverDisplay;
+  SaveTheBeesGameStatus status = SaveTheBeesGameStatus.waiting;
   SharedPreferences storage;
-  HighscoreDisplay highscoreDisplay;
   AudioPlayer backgroundMusic;
-  bool backgroundMusicIsPlaying = false;
+  double score = 0;
 
-  SaveTheBeesGame(storage) {
-    this.initialize();
+  bool get playing => status == SaveTheBeesGameStatus.playing;
+  bool get waiting => status == SaveTheBeesGameStatus.waiting;
+  bool get gameOver => status == SaveTheBeesGameStatus.gameOver;
+
+//  Size screenSize;
+//  double tileSize;
+//  List<Enemy> enemies;
+//  Random random;
+//  Background background;
+//  Hero hero;
+//  Offset center;
+//  View activeView = View.home;
+//  HomeView homeView;
+//  StartButton startButton;
+//  LoserView loserView;
+//  EnemySpawner enemySpawner;
+//  List<Cloud> clouds;
+//  CloudSpawner cloudSpawner;
+//  HelpButton helpButton;
+//  CreditsButton creditsButton;
+//  HelpView helpView;
+//  CreditsView creditsView;
+//  int score;
+//  ScoreDisplay scoreDisplay;
+//  HighscoreDisplay highscoreDisplay;
+//  bool backgroundMusicIsPlaying = false;
+
+  SaveTheBeesGame(storage, {spriteSheetImage, backgroundImage}) {
+    // Start the music player and other startup functions. Since this is an
+    // asynchronout function, it must be called outside of the constructor.
+    initialize();
+
+    // hold reference to persistent storage
     this.storage = storage;
+
+    // create displays
+    this.hero = new Hero(spriteSheetImage);
+    this.background = new Background(backgroundImage, spriteSheetImage);
+//    this.scoreDisplay = new Hero(spriteSheetImage);
+//    this.gameOverDisplay = new Hero(spriteSheetImage);
+
+    // add components to main game
+    this..add(hero)..add(background);
   }
 
   @override
@@ -76,25 +103,40 @@ class SaveTheBeesGame extends Game {
     }
   }
 
+  void onTap() {
+    // kill enemies?
+  }
+
   void initialize() async {
-    random = new Random();
-    enemies = List<Enemy>();
-    resize(await Flame.util.initialDimensions());
-    background = Background(this);
-    homeView = HomeView(this);
-    startButton = StartButton(this);
-    loserView = LoserView(this);
-    clouds = List<Cloud>();
-    cloudSpawner = CloudSpawner(this);
-    helpButton = HelpButton(this);
-    creditsButton = CreditsButton(this);
-//    creditsView = CreditsView(this);  TODO
-//    helpView = HelpView(this);  TODO
-    score = 0;
-    scoreDisplay = ScoreDisplay(this);
-    highscoreDisplay = HighscoreDisplay(this);
     backgroundMusic = await Flame.audio.loop('music/bensound-summer.mp3', volume: 0.25);
-    playBackgroundMusic();
+    playBackgroundMusic();  // do i need this here?
+  }
+
+  void update(double t) {
+
+    hero.update(t);
+    background.update(t);
+
+    if (gameOver) return;
+
+    if (playing) {
+
+    }
+
+
+    if (cloudSpawner != null) {
+      cloudSpawner.update(t);
+      clouds.forEach((Cloud c) => c.update(t));
+      clouds.removeWhere((Cloud c) => c.isOffScreen);
+    }
+
+    if (activeView == View.playing) {
+      enemySpawner.update(t);
+      enemies.forEach((Enemy e) => e.update(t));
+      enemies.removeWhere((Enemy e) => e.isOffScreen);
+      hero.update(t);
+      scoreDisplay.update(t);
+    }
   }
 
   void render(Canvas canvas) {
@@ -131,22 +173,6 @@ class SaveTheBeesGame extends Game {
 
     highscoreDisplay.render(canvas);
 
-  }
-
-  void update(double t) {
-    if (cloudSpawner != null) {
-      cloudSpawner.update(t);
-      clouds.forEach((Cloud c) => c.update(t));
-      clouds.removeWhere((Cloud c) => c.isOffScreen);
-    }
-
-    if (activeView == View.playing) {
-      enemySpawner.update(t);
-      enemies.forEach((Enemy e) => e.update(t));
-      enemies.removeWhere((Enemy e) => e.isOffScreen);
-      hero.update(t);
-      scoreDisplay.update(t);
-    }
   }
 
   void resize(Size size) {

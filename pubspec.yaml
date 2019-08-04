@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flame: ^0.14.2
   shared_preferences: ^0.5.3
+  quiver: '>=2.0.0 <3.0.0'
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +55,7 @@ flutter:
 
   assets:
     - assets/images/bg/bg.png
+    - assets/images/bg/background.png
     - assets/images/bg/cloud.png
 
     - assets/images/branding/logo.png

@@ -1,5 +1,5 @@
 import 'package:save_the_bees/save_the_bees_game.dart';
-import 'package:save_the_bees/components/enemy.dart';
+import 'package:save_the_bees/game/enemy/enemy.dart';
 
 class EnemySpawner {
   final SaveTheBeesGame game;

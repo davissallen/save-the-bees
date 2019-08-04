@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flame/sprite.dart';
 
-import 'package:save_the_bees/components/enemy.dart';
+import 'package:save_the_bees/game/enemy/enemy.dart';
 import 'package:save_the_bees/save_the_bees_game.dart';
 
 class Pesticide extends Enemy {

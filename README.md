@@ -11,7 +11,7 @@ of its bee brothers and sisters in bee paradise tucked far, far away.
 
 ### realms ("levels")
 with each progressive level, get higher into space and enemies/abilities change
- - 0 kills  : sky
+ - 0 kills  : ground
  - 10 kills : sky
  - 25 kills : atmosphere
  - 50 kills : space
